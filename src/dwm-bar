@@ -1,0 +1,41 @@
+#!/bin/bash
+
+get_date() {
+	printf "^c#eaeaea^^d^ %s\n" "$(date '+%B/%d %I:%M %p')"
+}
+
+# battery
+# changed battery here
+battery="Battery 0"
+batt() {
+	printf "^c#eaeaea^ $(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print "  " $4}}')"
+}
+
+SPLITER=" "
+
+prepend_text() {
+	text=" "
+	# text+="${DWM_STORAGE_STATUS} "
+	# text+="${DWM_CPU_LOAD} "
+	# text+="${DWM_MEM_STATUS} "
+	text+="$(batt)"
+	text+=$SPLITER
+	text+="$(get_date)"
+
+	echo $text
+}
+
+CONKY_EXEC="$(command -v conky)"
+
+if [ -z $CONKY_EXEC ]; then
+	while true; do
+		xsetroot -name "$(prepend_text)"
+
+		sleep 60
+	done
+fi
+
+if [ -n $CONKY_EXEC ]; then
+	$CONKY_EXEC | \
+		while read LINE; do xsetroot -name "$LINE"; done
+fi
