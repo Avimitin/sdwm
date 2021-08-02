@@ -884,8 +884,8 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		isCode = 0;
 	text = p;
 
-	w += 2; /* 1px padding on both sides */
-	ret = x = m->ww - w;
+	w += 6; /* 3px padding on both sides */
+	ret = x = m->ww - w - getsystraywidth();
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
@@ -911,13 +911,13 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 					char buf[8];
 					memcpy(buf, (char*)text+i+1, 7);
 					buf[7] = '\0';
-					drw_clr_create(drw, &drw->scheme[ColFg], buf);
+					drw_clr_create(drw, &drw->scheme[ColFg], buf, alphas[SchemeNorm][1]);
 					i += 7;
 				} else if (text[i] == 'b') {
 					char buf[8];
 					memcpy(buf, (char*)text+i+1, 7);
 					buf[7] = '\0';
-					drw_clr_create(drw, &drw->scheme[ColBg], buf);
+					drw_clr_create(drw, &drw->scheme[ColBg], buf, alphas[SchemeNorm][1]);
 					i += 7;
 				} else if (text[i] == 'd') {
 					drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
@@ -970,7 +970,7 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		/* drw_text(drw, m->ww - tw - stw, 0, tw, bh, lrpad / 2, stext, 0); */
-		tw = m->ww - drawstatusbar(m, bh, stext) + 2; 
+		tw = m->ww - drawstatusbar(m, bh, stext); 
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -2033,9 +2033,10 @@ setup(void)
 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
 	/* init appearance */
 	scheme = ecalloc(LENGTH(colors) + 1, sizeof(Clr *));
-	scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], 3);
-	for (i = 0; i < LENGTH(colors); i++)
+	for (i = 0; i < LENGTH(colors); i++) {
 		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 3);
+	  scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], alphas[i], 3);
+	}
 	/* init system tray */
 	if (showsystray)
 		updatesystray();
