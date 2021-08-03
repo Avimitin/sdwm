@@ -77,9 +77,13 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run",  NULL };
 static const char *scscmd[] = { "flameshot", "gui",  NULL };
-static const char *powercmd[] = { "/usr/local/bin/shutdown_dmenu", NULL };
-static const char *chwpcmd[] = { "/home/sh1marin/.local/bin/chwp", NULL };
 static const char *termcmd[]  = { "st", NULL };
+
+/* changed all sh1marin to your name */
+static const char *powercmd[] = { "/home/sh1marin/.local/share/dwm/power", NULL };
+static const char *chwpcmd[] = { "/home/sh1marin/.local/share/dwm/chwp", NULL };
+static const char *volupcmd[] = { "/home/sh1marin/.local/share/dwm/dwm-volume-ctl", "up", NULL };
+static const char *voldowncmd[] = { "/home/sh1marin/.local/share/dwm/dwm-volume-ctl", "down", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -88,6 +92,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = scscmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = chwpcmd } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = powercmd } },
+	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volupcmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldowncmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
