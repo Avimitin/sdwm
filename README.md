@@ -24,7 +24,11 @@ My attempt to make DWM focus on the "WM".
 Changed the home path in `Makefile` and config.def.h. Then run command to built it:
 
 ```console
-$ sudo make clean install
+# Change my username to your name 
+sed -i 's/sh1marin/YOURNAME/g' src/config.def.h src/Makefile
+
+# Build and enjoy!
+sudo make clean install
 ```
 
 - Scripts
