@@ -2,7 +2,7 @@
 
 My attempt to make DWM focus on the "WM".
 
-![img](./dwm-screenshot.png)
+![img](./images/dwm-screenshot.png)
 
 ## Feature
 
@@ -15,7 +15,7 @@ My attempt to make DWM focus on the "WM".
 - Status text support colors
 - Hide and restore windows feature (You can use it like a scratchpad)
 
-![image](./output.gif) 
+![image](./images/output.gif) 
 
 ## Usage
 
