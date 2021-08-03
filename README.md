@@ -1,4 +1,6 @@
-# My Custom DWM
+# SDWM
+
+My attempt to make DWM focus on the "WM".
 
 ![img](./dwm-screenshot.png)
 
@@ -90,7 +92,6 @@ Also you may want feh to change background, and picom to add blur transparency.
 ## Credit
 
 Original dwm: https://dwm.suckless.org
-Background image: https://unsplash.com/photos/VBNb52J8Trk
 
 ## License
 
