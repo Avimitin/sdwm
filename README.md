@@ -4,6 +4,19 @@ My attempt to make DWM focus on the "WM".
 
 ![img](./dwm-screenshot.png)
 
+## Feature
+
+- Lightweight and portable
+- Trasnparent systray
+- No annoying title
+- Hide tag when no windows use them
+- Full nerd font icon
+- Out of the box
+- Status text support colors
+- Hide and restore windows feature (You can use it like a scratchpad)
+
+![image](./output.gif) 
+
 ## Usage
 
 - build
@@ -56,7 +69,6 @@ Mod + Shift + q:     Kill program
 Mod + Shift + c:     Kill dwm(log out)
 Mod + Shift + 0:     View all pages
 
-Mod + Ctrl + 0:    Reset gaps
 Mod + =:           Increase gaps
 Mod + -:           Decrease gaps
 Mod + Shift + -:   Toggle gaps
@@ -71,10 +83,10 @@ Mod + f:             Toggle floating layout
 Mod + Shift + f:     Toggle fullscreen layout
 Mod + Enter:         Set current windows as master
 
-Mod + Control + s:   Set windows as shown
-Mod + Control + h:   Set windows as hided
+Mod + w:           Hide window
+Mod + Shift + w:   Pop out hided window
 Mod + j/k:         Focus around shown windows
-Mod + Shift + j/k: Focus around hided windows (Will cause crash now)
+Mod + i/d:         Toggle horizon split or vertical split
 ```
 
 Mouse are also supported
@@ -92,6 +104,11 @@ Also you may want feh to change background, and picom to add blur transparency.
 ## Credit
 
 Original dwm: https://dwm.suckless.org
+
+The hide and restore windows is copy from
+[theniceboy/hide-and-restore](https://github.com/theniceboy/dwm-hide-and-restore-win.diff/blob/master/dwm-hide-and-restore.diff)
+and
+[awesomebar](https://dwm.suckless.org/patches/awesomebar/)
 
 ## License
 
