@@ -8,7 +8,16 @@ get_date() {
 # changed battery here
 battery="Battery 0"
 batt() {
-	printf "^c#eaeaea^ $(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print "  " $4}}')"
+	printf "^c#eaeaea^ $(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print " " $4; exit} else {print " " $4}}')"
+}
+
+# System volume
+# Changed your sound card here:
+sound_card=0
+# Changed your controller here:
+sound_controller="Headphone"
+volume() {
+	printf "^c#eaeaea^  $(amixer --card 0 sget Headphone | grep 'Front Left: Playback' | awk -F'[][]' '{print $2}' | sed 's/%/%%/g')"
 }
 
 SPLITER=" "
@@ -18,6 +27,8 @@ prepend_text() {
 	# text+="${DWM_STORAGE_STATUS} "
 	# text+="${DWM_CPU_LOAD} "
 	# text+="${DWM_MEM_STATUS} "
+	text+="$(volume)"
+	text+=$SPLITER
 	text+="$(batt)"
 	text+=$SPLITER
 	text+="$(get_date)"
