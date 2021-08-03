@@ -6,7 +6,7 @@ include config.mk
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
 
-# changed named here
+# change name here
 HOMEDIR = /home/sh1marin
 
 all: options dwm
