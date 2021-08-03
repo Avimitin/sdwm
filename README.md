@@ -12,7 +12,7 @@ My attempt to make DWM focus on the "WM".
 - Hide tag when no windows use them
 - Full nerd font icon
 - Out of the box
-- Status text support colors
+- Status text support colors (see [siduck76/chadwm](https://github.com/siduck76/chadwm/blob/main/.dwm/bar#L8) for color example)
 - Hide and restore windows feature (You can use it like a scratchpad)
 
 ![image](./images/output.gif) 
