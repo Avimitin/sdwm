@@ -27,8 +27,11 @@ Changed the home path in `Makefile` and config.def.h. Then run command to built 
 # Change my username to your name 
 sed -i 's/sh1marin/YOURNAME/g' src/config.def.h src/Makefile
 
-# Build and enjoy!
+# Build 
 sudo make clean install
+
+# Copy script
+cp scripts/* ~/.local/share/dwm
 ```
 
 - Scripts
