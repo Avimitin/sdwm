@@ -94,6 +94,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = powercmd } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volupcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldowncmd } },
+	{ MODKEY,                       XK_w,      hidewin,        {0} },
+	{ MODKEY|ShiftMask,             XK_w,      restorewin,     {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
