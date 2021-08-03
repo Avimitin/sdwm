@@ -6,6 +6,9 @@ include config.mk
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
 
+# changed named here
+HOMEDIR = /home/sh1marin
+
 all: options dwm
 
 options:
@@ -37,9 +40,9 @@ dist: clean
 	rm -rf dwm-${VERSION}
 
 install: all
-	mkdir -p ${DESTDIR}${PREFIX}/bin ${HOME}/.local/share/dwm
+	mkdir -p ${DESTDIR}${PREFIX}/bin ${HOMEDIR}/.local/share/dwm
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
-	cp -f dwm-bar autostart.sh ${HOME}/.local/share/dwm
+	cp -f scripts/* ${HOMEDIR}/.local/share/dwm
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
