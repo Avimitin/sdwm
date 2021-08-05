@@ -1122,11 +1122,11 @@ focusstack(const Arg *arg)
 			for (c = selmon->clients; c && (!ISVISIBLE(c) || HIDDEN(c)); c = c->next);
 	} else {
 		for (i = selmon->clients; i != selmon->sel; i = i->next)
-			if (ISVISIBLE(i) || HIDDEN(c))
+			if (ISVISIBLE(i) && !HIDDEN(i))
 				c = i;
 		if (!c)
 			for (; i; i = i->next)
-				if (ISVISIBLE(i) || HIDDEN(c))
+				if (ISVISIBLE(i) && !HIDDEN(i))
 					c = i;
 	}
 	if (c) {
