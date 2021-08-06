@@ -84,6 +84,7 @@ static const char *powercmd[] = { "/home/sh1marin/.local/share/dwm/power", NULL 
 static const char *chwpcmd[] = { "/home/sh1marin/.local/share/dwm/chwp", NULL };
 static const char *volupcmd[] = { "/home/sh1marin/.local/share/dwm/dwm-volume-ctl", "up", NULL };
 static const char *voldowncmd[] = { "/home/sh1marin/.local/share/dwm/dwm-volume-ctl", "down", NULL };
+static const char *playerctlcmd[] = { "/home/sh1marin/.local/share/dwm/playerctl.sh", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -94,6 +95,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = powercmd } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volupcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldowncmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = playerctlcmd } },
 	{ MODKEY,                       XK_w,      hidewin,        {0} },
 	{ MODKEY|ShiftMask,             XK_w,      restorewin,     {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
