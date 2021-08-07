@@ -10,12 +10,18 @@ My attempt to make DWM focus on the "WM".
 - Trasnparent systray
 - No annoying title
 - Hide tag when no windows use them
+
+![image](./images/dwm-tag.png) 
+
 - Full nerd font icon
 - Out of the box
 - Status text support colors (see [siduck76/chadwm](https://github.com/siduck76/chadwm/blob/main/.dwm/bar#L8) for color example)
+
+![image](./images/dwm-bar.png) 
+
 - Hide and restore windows feature (You can use it like a scratchpad)
 
-![image](./images/output.gif) 
+https://user-images.githubusercontent.com/30021675/128586163-d86e37dc-fcec-4a0f-8f71-6ff5ca8dc941.mp4
 
 ## Usage
 
