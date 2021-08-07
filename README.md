@@ -8,10 +8,16 @@ My attempt to make DWM focus on the "WM".
 
 - Lightweight and portable
 - Trasnparent systray
+- Lot's of useful scripts
+	- Song control
+		![image](./images/dwm-playerctl.png)
+	- Power control
+		![image](./images/dwm-powermenu.png)
+
 - No annoying title
 - Hide tag when no windows use them
 
-![image](./images/dwm-tag.png) 
+	![image](./images/dwm-tag.png) 
 
 - Full nerd font icon
 - Out of the box
