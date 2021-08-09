@@ -15,3 +15,5 @@ case $1 in
 		echo "Usage: dwm-volume-ctl up/down"
 		;;
 esac
+
+./dwm-status-refresh
