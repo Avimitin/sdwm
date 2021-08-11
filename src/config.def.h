@@ -5,6 +5,9 @@ static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always };
+static const int showtab            = showtab_auto;
+static const int toptab             = True;
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -12,26 +15,36 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray             = 1;   /* 0 means no systray */
 static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 5;        /* vertical padding for statusbar */
+static const int vertpadtab         = 37;
+static const int horizpadtabi       = 15;
+static const int horizpadtabo       = 15;
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char *fonts[]          = { "UbuntuMono Nerd Font Mono:size=13" };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
+static const char col_gray3[]       = "#606672";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#70c0ba";
+static const char black[]           = "#2e3440";
+
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
-static const unsigned int baralpha = 0x33;
+static const unsigned int baralpha = 0x80;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
 	[SchemeSel]  = { "#000000", col_gray4,  col_gray4  },
+	[TabSel]     = { col_gray4, col_gray1,  black  },
+	[TabNorm]    = { col_gray3, col_gray1, black },
 };
+
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[TabSel]     = { OPAQUE, baralpha, borderalpha },
+	[TabNorm]    = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
@@ -125,6 +138,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
+	{ MODKEY|ShiftMask,             XK_t,      tabmode,        { -1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -151,5 +165,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
 
