@@ -30,7 +30,9 @@ static const char black[]           = "#2e3440";
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
 static const unsigned int baralpha = 0x80;
+static const unsigned int tabalpha = 0xE6;
 static const unsigned int borderalpha = OPAQUE;
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
@@ -43,8 +45,8 @@ static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
-	[TabSel]     = { OPAQUE, baralpha, borderalpha },
-	[TabNorm]    = { OPAQUE, baralpha, borderalpha },
+	[TabSel]     = { OPAQUE, tabalpha, borderalpha },
+	[TabNorm]    = { OPAQUE, tabalpha, borderalpha },
 };
 
 /* tagging */
