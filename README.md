@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/30021675/128586163-d86e37dc-fcec-4a0f-
 
 ![image](./images/dwm-tab.png) 
 
-https://user-images.githubusercontent.com/30021675/129056098-057f2834-a916-4cfb-9b6c-e8aa449704e1.mp4
+https://user-images.githubusercontent.com/30021675/129058318-837367f1-5796-42cd-81ee-96dd474b9b93.mp4
 
 ## Usage
 
