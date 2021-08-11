@@ -29,6 +29,12 @@ My attempt to make DWM focus on the "WM".
 
 https://user-images.githubusercontent.com/30021675/128586163-d86e37dc-fcec-4a0f-8f71-6ff5ca8dc941.mp4
 
+- Tab support
+
+![image](./images/dwm-tab.png) 
+
+https://user-images.githubusercontent.com/30021675/129056098-057f2834-a916-4cfb-9b6c-e8aa449704e1.mp4
+
 ## Usage
 
 - build
