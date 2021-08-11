@@ -101,9 +101,9 @@ Mod + Shift + =:   Reset gaps
 
 Mod + b:             Toggle bar
 Mod + Space:         Switch last two layout
-Mod + Shift + Space: Toggle floating windows aka reset windows size
+Mod + Shift + Space: Set current window as floatin window
 Mod + t:             Toggle tilling layout
-Mod + m:             Toggle fullscreen layout
+Mod + m:             Toggle monocle layout (Tab page support)
 Mod + f:             Toggle floating layout
 Mod + Shift + f:     Toggle fullscreen layout
 Mod + Enter:         Set current windows as master
