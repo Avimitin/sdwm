@@ -2620,26 +2620,30 @@ updatebarpos(Monitor *m)
 			if(ISVISIBLE(c)) ++nvis;
 	}
 
-	if(m->showtab == showtab_always
-	   || ((m->showtab == showtab_auto) && (nvis > 1) && (m->lt[m->sellt]->arrange == monocle))) {
+	if(m->showtab == showtab_always || 
+			((m->showtab == showtab_auto) && (nvis > 1) && (m->lt[m->sellt]->arrange == monocle))) {
 		m->topbar = !toptab;
 		m->wh -= th + ((m->topbar == toptab && m->showbar) ? 0 : m->gap->gappx) - m->gap->gappx;
 		m->ty = m->toptab ? m->wy + ((m->topbar && m->showbar) ? 0 : m->gap->gappx) : m->wy + m->wh - m->gap->gappx;
 
-		if ( m->toptab )
+		if (m->toptab)
 			 m->wy += th + ((m->topbar && m->showbar) ? 0 : m->gap->gappx) - m->gap->gappx;
 	} else {
 		m->ty = -th - m->gap->gappx;
 		m->topbar = topbar;
 	}
 
- if (m->showbar) {
-  m->wh = m->wh - bh;
-  m->by = m->topbar ? m->wy : m->wy + m->wh;
-  if (m->topbar)
-    	m->wy += bh;
-  } else
+	if (m->showbar) {
+		m->wh = m->wh - bh;
+		if (m->topbar) {
+			m->by = m->wy;
+			m->wy = m->wy + bh;
+		} else {
+			m->by = m->wy + m->wh;
+		}
+  } else {
     m->by = -bh;
+	}
 }
 
 void
