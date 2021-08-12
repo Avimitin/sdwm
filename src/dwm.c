@@ -931,7 +931,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		isCode = 0;
 	text = p;
 
-	w += 6; /* 3px padding on both sides */
+	w += 4; /* 2px padding on both sides */
 	ret = x = m->ww - w - getsystraywidth();
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
