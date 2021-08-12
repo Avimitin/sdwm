@@ -51,9 +51,9 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "\uf8a3", "\uf8a6", "\uf8a9", 
-                              "\uf8ac", "\uf8af", "\uf8b2", 
-                              "\uf8b5", "\uf8b8", "\uf8bb" };
+static const char *tags[] = { "", "", "", 
+                              "ﴬ", "", "", 
+                              "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
