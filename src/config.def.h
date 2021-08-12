@@ -15,30 +15,31 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray             = 1;   /* 0 means no systray */
 static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 5;        /* vertical padding for statusbar */
-static const int vertpadtab         = 37;
-static const int horizpadtabi       = 15;
-static const int horizpadtabo       = 15;
+static const int vertpadtab         = 37;       /* Vertical padding for tab */
+static const int horizpadtabi       = 15;       /* Horizon padding in tab */
+static const int horizpadtabo       = 15;       /* Horizon padding at the tab edge */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char *fonts[]          = { "UbuntuMono Nerd Font Mono:size=13" };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#606672";
-static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#70c0ba";
+static const char bluegray[]        = "#2e3440";
+static const char white[]           = "#eeeeee";
 static const char black[]           = "#232831";
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
-static const unsigned int baralpha = 0x80;
-static const unsigned int tabalpha = 0xE6;
+static const unsigned int baralpha = 0x80; /* 50% */
+static const unsigned int tabalpha = 0xE6; /* 90% */
 static const unsigned int borderalpha = OPAQUE;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
-	[SchemeSel]  = { "#000000", col_gray4,  col_gray4  },
-	[TabSel]     = { col_gray4, "#2e3440",  black  },
-	[TabNorm]    = { col_gray3, black, black },
+	[SchemeNorm] = { white,     col_gray1, col_gray2 },
+	[SchemeSel]  = { black,     white,     white  },
+	[TabSel]     = { white,     bluegray, black  },
+	[TabNorm]    = { col_gray3, black,     black },
 };
 
 static const unsigned int alphas[][3]      = {
@@ -92,8 +93,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run",  NULL };
 static const char *scscmd[] = { "flameshot", "gui",  NULL };
-/* static const char *termcmd[]  = { "st", NULL }; */
-static const char *termcmd[]  = { "tabbed", "-d", "-r", "2", "st", "-w", "\"\"", NULL };
+static const char *termcmd[]  = { "st", "-c", "simp-term", NULL };
+/* static const char *termcmd[]  = { "tabbed", "-d", "-r", "2", "st", "-w", "\"\"", NULL }; */
 
 /* changed all sh1marin to your name */
 static const char *powercmd[] = { "/home/sh1marin/.local/share/dwm/power", NULL };

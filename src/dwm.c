@@ -1724,6 +1724,8 @@ propertynotify(XEvent *e)
 		}
 		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName]) {
 			updatetitle(c);
+			if (c == c->mon->sel)
+				drawbar(c->mon);
 			drawtab(c->mon);
 		}
 		if (ev->atom == netatom[NetWMWindowType])
