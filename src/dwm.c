@@ -1096,6 +1096,15 @@ drawtab(Monitor *m) {
 	int w = 0;
 	int mw = m->ww - 2 * m->gap->gappx;
 
+	/* cleans window */
+	if(m->showtab == showtab_always || 
+	    ((m->showtab == showtab_auto) && (m->lt[m->sellt]->arrange == monocle))) {
+	  drw_setscheme(drw, scheme[TabNorm]);
+	  drw_rect(drw, 0, 0, mw, th, 1, 1);
+	} else {
+	  return;
+	}
+
 	/* Calculates number of labels and their width */
 	m->ntabs = 0;
 	for(c = m->clients; c; c = c->next){
@@ -1120,11 +1129,8 @@ drawtab(Monitor *m) {
 	} else{
 	  maxsize = mw;
 	}
-	i = 0;
 
-	/* cleans window */
-	drw_setscheme(drw, scheme[TabNorm]);
-	drw_rect(drw, 0, 0, mw, th, 1, 1);
+	i = 0;
 
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
