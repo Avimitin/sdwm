@@ -2221,8 +2221,8 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors) + 1, sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++) {
 		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 3);
-	  scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], alphas[i], 3);
 	}
+	scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], alphas[0], 3);
 	/* init system tray */
 	if (showsystray)
 		updatesystray();
