@@ -120,6 +120,9 @@ The hide and restore windows is copy from
 and
 [awesomebar](https://dwm.suckless.org/patches/awesomebar/)
 
+The tab in monocle layout is copy from
+[siduck76/chadwm](https://github.com/siduck76/chadwm).
+
 ## Issues
 
 Currently, the tab color will be drawn to the status bar when you switch to mococle layout.
