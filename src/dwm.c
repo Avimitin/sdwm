@@ -931,14 +931,15 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		isCode = 0;
 	text = p;
 
-	w += 4; /* 2px padding on both sides */
-	ret = x = m->ww - w - getsystraywidth();
+	w += horizpadbar;
+	ret = m->ww - horizpadbar - borderpx - w;
+	x = m->ww - horizpadbar - borderpx - w - getsystraywidth();
 
 	drw_setscheme(drw, scheme[LENGTH(colors)]);
 	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
 	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
 	drw_rect(drw, x, 0, w, bh, 1, 1);
-	x++;
+	x += horizpadbar / 2;
 
 	/* process status text */
 	i = -1;
@@ -1017,7 +1018,7 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		/* drw_text(drw, m->ww - tw - stw, 0, tw, bh, lrpad / 2, stext, 0); */
-		tw = m->ww - drawstatusbar(m, bh, stext); 
+		tw = m->ww - drawstatusbar(m, bh, stext);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -2600,8 +2601,8 @@ updatebars(void)
 			XMapRaised(dpy, systray->win);
 		XMapRaised(dpy, m->barwin);
 		m->tabwin = XCreateWindow(dpy, root, m->wx + m->gap->gappx, m->ty, m->ww - 2 * m->gap->gappx, th, 0, depth,
-															InputOutput, visual,
-															CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
+					  InputOutput, visual,
+					  CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 		XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
 		XMapRaised(dpy, m->tabwin);
 		XSetClassHint(dpy, m->barwin, &ch);
@@ -2641,8 +2642,8 @@ updatebarpos(Monitor *m)
 		} else {
 			m->by = m->wy + m->wh;
 		}
-  } else {
-    m->by = -bh;
+	} else {
+		m->by = -bh;
 	}
 }
 
