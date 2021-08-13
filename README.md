@@ -61,21 +61,6 @@ I've write some script to automatically run when dwm start up, checkout the
 
 Modified file `config.def.h`
 
-## Patches
-
-```text
-dwm-alpha-20201019-61bb8b2.diff
-dwm-fullgaps-toggle-20200830.diff
-dwm-notitle-20210715-138b405.diff
-dwm-autostart-20210120-cb3f58a.diff
-dwm-pertag-20200914-61bb8b2.diff
-dwm-status2d-20200508-60bb3df.diff
-dwm-viewontag-20210312-61bb8b2.diff
-dwm-systray-20210418-67d76bd.diff
-dwm-hide_vacant_tags-6.2.diff
-dwm-fullscreen-6.2.diff
-```
-
 ## Keymap
 
 Mod key is Win key.
@@ -134,6 +119,11 @@ The hide and restore windows is copy from
 [theniceboy/hide-and-restore](https://github.com/theniceboy/dwm-hide-and-restore-win.diff/blob/master/dwm-hide-and-restore.diff)
 and
 [awesomebar](https://dwm.suckless.org/patches/awesomebar/)
+
+## Issues
+
+Currently, the tab color will be drawn to the status bar when you switch to mococle layout.
+Track the issue in [#4](https://github.com/Avimitin/sdwm/issues/4).
 
 ## License
 
