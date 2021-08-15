@@ -105,7 +105,7 @@ static const char *playerctlcmd[] = { "/home/sh1marin/.local/share/dwm/playerctl
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Return, spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_o, spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = scscmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = chwpcmd } },
