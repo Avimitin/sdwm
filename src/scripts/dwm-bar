@@ -4,7 +4,7 @@ CONKY_EXEC="$(command -v conky)"
 
 if [ -z $CONKY_EXEC ]; then
 	while true; do
-		./dwm-status-refresh
+		$HOME/.local/share/dwm/dwm-bar-refresh
 		sleep 10
 	done
 fi

@@ -16,4 +16,4 @@ case $1 in
 		;;
 esac
 
-./dwm-status-refresh
+$HOME/.local/share/dwm/dwm-bar-refresh

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+get_date() {
+	printf "^c#eaeaea^^d^ "
+	printf "^c#eaeaea^$(date '+%B/%d %I:%M ^c#ABBAC1^%p^d^') ^d^"
+}
+
+# battery
+# changed battery here
+battery="Battery 0"
+batt() {
+	printf "$(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print " " $4}}')"
+}
+
+# System volume
+# Changed your sound card here:
+sound_card=0
+# Changed your controller here:
+sound_controller="Headphone"
+volume() {
+	printf "^c#eaeaea^ "
+	printf "$(amixer --card $sound_card sget $sound_controller | grep 'Front Left: Playback' | awk -F'[][]' '{print $2}' | sed 's/%/%%/g')"
+}
+
+SPLITER=" "
+
+song() {
+	printf "^c#eaeaea^^b#0c0c0c^ "
+	printf "^c#eaeaea^ ^b#171617^ $(playerctl metadata artist) - $(playerctl metadata title) ^d^"
+}
+
+prepend_text() {
+	text=""
+	text+="$(song)"
+	text+=$SPLITER
+	text+="$(volume)"
+	text+=$SPLITER
+	text+="$(batt)"
+	text+=$SPLITER
+	text+="$(get_date)"
+
+	echo $text
+}
+
+xsetroot -name "$(prepend_text)"

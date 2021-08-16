@@ -5,4 +5,4 @@ selection="$(echo -e $options | \
              dmenu -i -p "Do something")"
 
 result=$(playerctl $selection)
-./dwm-status-refresh
+$HOME/.local/share/dwm/dwm-bar-refresh
