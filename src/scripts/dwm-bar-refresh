@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SPLITER=" "
+
 get_date() {
 	printf "^c#eaeaea^^d^ "
 	printf "^c#eaeaea^$(date '+%B/%d %I:%M ^c#ABBAC1^%p^d^') ^d^"
@@ -22,11 +24,20 @@ volume() {
 	printf "$(amixer --card $sound_card sget $sound_controller | grep 'Front Left: Playback' | awk -F'[][]' '{print $2}' | sed 's/%/%%/g')"
 }
 
-SPLITER=" "
+song_max_char=40
+get_song_info() {
+  song_info="$(playerctl metadata artist) - $(playerctl metadata title)"
+  song_info_char=${#song_info}
+  if test $[song_info_char] -gt $[song_max_char]; then
+    printf "${song_info:0:$[song_max_char]}..."
+  else
+    printf $song_info
+  fi
+}
 
 song() {
 	printf "^c#eaeaea^^b#0c0c0c^ "
-	printf "^c#eaeaea^ ^b#171617^ $(playerctl metadata artist) - $(playerctl metadata title) ^d^"
+	printf "^c#eaeaea^ ^b#171617^ $(get_song_info) ^d^"
 }
 
 prepend_text() {
