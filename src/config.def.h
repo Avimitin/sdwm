@@ -78,6 +78,10 @@ static const Layout layouts[] = {
 	{ "𧻓",      monocle },
 };
 
+static const char* monocle_windows_count_tags[] = {
+  "", "", "", "", "", "", "", "", "", "",
+};
+
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \

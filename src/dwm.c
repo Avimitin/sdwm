@@ -1573,6 +1573,12 @@ monocle(Monitor *m)
 		if (ISVISIBLE(c))
 			n++;
 	  int newx, newy, neww, newh;
+	
+	if (n > 0 && n < 10) {
+	  snprintf(m->ltsymbol, sizeof m->ltsymbol, "%s", monocle_windows_count_tags[n-1]);
+	} else if (n > 9) {
+	  snprintf(m->ltsymbol, sizeof m->ltsymbol, "%s", monocle_windows_count_tags[9]);
+	}
 
   for (c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
     if (m->gap->gappx == 0) {
