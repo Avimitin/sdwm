@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 20};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always };
@@ -32,13 +32,13 @@ static const char black[]           = "#232831";
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
 static const unsigned int baralpha = 0x80; /* 50% */
 static const unsigned int tabalpha = 0xE6; /* 90% */
-static const unsigned int borderalpha = OPAQUE;
+static const unsigned int borderalpha = 0xE6;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { white,     col_gray1, col_gray2 },
-	[SchemeSel]  = { black,     white,     white  },
-	[TabSel]     = { white,     bluegray, black  },
+	[SchemeNorm] = { white,     col_gray1, black },
+	[SchemeSel]  = { black,     white,     col_gray2  },
+	[TabSel]     = { white,     bluegray,  col_gray2  },
 	[TabNorm]    = { col_gray3, black,     black },
 };
 
