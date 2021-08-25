@@ -137,6 +137,9 @@ shadow-exclude = [
 ];
 ```
 
+For detail about how to add wm class for systray, checkout this patch: 
+[dwm-systray-wmclass](https://github.com/Leskodamus/dwm/blob/master/patches/dwm-systray-wmclass-6.2.diff)
+
 ## License
 
 MIT License
