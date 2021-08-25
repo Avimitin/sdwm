@@ -27,6 +27,7 @@ static const char col_cyan[]        = "#70c0ba";
 static const char bluegray[]        = "#2e3440";
 static const char white[]           = "#eeeeee";
 static const char black[]           = "#232831";
+static const char selected_border_color[] = "#615d63";
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
@@ -36,9 +37,9 @@ static const unsigned int borderalpha = 0xE6;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { white,     col_gray1, black },
-	[SchemeSel]  = { black,     white,     col_gray2  },
-	[TabSel]     = { white,     bluegray,  col_gray2  },
+	[SchemeNorm] = { white,     col_gray1, black},
+	[SchemeSel]  = { black,     white,     selected_border_color  },
+	[TabSel]     = { white,     bluegray,  selected_border_color  },
 	[TabNorm]    = { col_gray3, black,     black },
 };
 
