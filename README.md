@@ -128,6 +128,15 @@ The tab in monocle layout is copy from
 Currently, the tab color will be drawn to the status bar when you switch to mococle layout.
 Track the issue in [#4](https://github.com/Avimitin/sdwm/issues/4).
 
+Systray shadow can be disabled by `WM_CLASS: "dwmsystray"` filter. For example if you are
+using picom as compositor, add below into your picom.conf file:
+
+```text
+shadow-exclude = [
+  "class_g = 'dwmsystray'",
+];
+```
+
 ## License
 
 MIT License
