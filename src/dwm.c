@@ -2849,7 +2849,7 @@ updatesystray(void)
 		wa.background_pixel = 0;
 		wa.border_pixel = 0;
 		wa.colormap = cmap;
-		systray->win = XCreateWindow(dpy, root, x - xpad, m->by + ypad, w, bh, 0, depth,
+		systray->win = XCreateWindow(dpy, root, x - xpad, m->by + ypad, w + 6, bh, 0, depth,
 						InputOutput, visual,
 						CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 		XSelectInput(dpy, systray->win, SubstructureNotifyMask);
