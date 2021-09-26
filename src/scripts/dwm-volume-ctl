@@ -1,15 +1,11 @@
 #!/bin/bash
 
-# Changed your card device here
-volume_ctl_card=0
-volume_ctl_control="Headphone"
-
 case $1 in
 	"up")
-			amixer --card $volume_ctl_card sset $volume_ctl_control 10%+
+			pamixer -i 10
 		;;
 	"down")
-			amixer --card $volume_ctl_card sset $volume_ctl_control 10%-
+			pamixer -d 10
 		;;
 	*)
 		echo "Usage: dwm-volume-ctl up/down"

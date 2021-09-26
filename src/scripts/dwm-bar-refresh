@@ -14,14 +14,9 @@ batt() {
 	printf "$(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print " " $4}}')"
 }
 
-# System volume
-# Changed your sound card here:
-sound_card=0
-# Changed your controller here:
-sound_controller="Headphone"
 volume() {
 	printf "^c#eaeaea^ "
-	printf "$(amixer --card $sound_card sget $sound_controller | grep 'Front Left: Playback' | awk -F'[][]' '{print $2}' | sed 's/%/%%/g')"
+	printf " $(pamixer --get-volume) %%"
 }
 
 song_max_char=40

@@ -111,6 +111,10 @@ Fallback fonts: `UbuntuMono Nerd Font Mono`
 
 Also you may want feh to change background, and picom to add blur transparency.
 
+ control script is based on
+[pamixer](https://github.com/cdemoulins/pamixer). So you need to
+install pulseaudio and pamixer.
+
 ## Credit
 
 Original dwm: https://dwm.suckless.org
