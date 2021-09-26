@@ -63,7 +63,7 @@ static const Rule rules[] = {
 	 */
 	/* class                 instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",                NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",             NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "firefox",             NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "Anki",                NULL,       NULL,       0,            1,           -1 },
 	{ "Nemo",                NULL,       NULL,       0,            1,           -1 },
 	{ "TelegramDesktop",     NULL,       NULL,       1 << 7,       1,           -1 },
@@ -75,11 +75,13 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+#include "horizgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
-	{ "\ufab1",      NULL },    /* no layout function means floating behavior */
-	{ "𧻓",      monocle },
+	{ "\ufab1", NULL },    /* no layout function means floating behavior */
+	{ "𧻓",     monocle },
+    { "ﱖ",      horizgrid },
 };
 
 static const char* monocle_windows_count_tags[] = {
@@ -136,6 +138,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
