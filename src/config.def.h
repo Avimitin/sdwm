@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 20};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -67,6 +67,7 @@ static const Rule rules[] = {
 	{ "Anki",                NULL,       NULL,       0,            1,           -1 },
 	{ "Nemo",                NULL,       NULL,       0,            1,           -1 },
 	{ "TelegramDesktop",     NULL,       NULL,       1 << 7,       1,           -1 },
+	{ "eudic",               NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
