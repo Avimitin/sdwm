@@ -8,6 +8,7 @@ My attempt to make DWM focus on the "WM".
 
 - Lightweight and portable
 - Trasnparent systray
+- Rounded corner window (You can now have both shadow and corner)
 - Lot's of useful scripts
 	- Song control
 		![image](./images/dwm-playerctl.png)
