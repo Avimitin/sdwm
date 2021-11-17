@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 20};
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always };
@@ -27,7 +27,8 @@ static const char col_cyan[]        = "#70c0ba";
 static const char bluegray[]        = "#2e3440";
 static const char white[]           = "#eeeeee";
 static const char black[]           = "#232831";
-static const char selected_border_color[] = "#BFBEC0";
+static const char selected_border_color[] = "#6A6A6B";
+static const int CORNER_RADIUS = 10;
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
@@ -52,9 +53,9 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", 
-                              "ﴬ", "", "", 
-                              "", "", "" };
+static const char *tags[] = { "", "", "", 
+                              "", "", "", 
+                              "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -63,10 +64,10 @@ static const Rule rules[] = {
 	 */
 	/* class                 instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",                NULL,       NULL,       0,            1,           -1 },
-	{ "firefox",             NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "firefox",             NULL,       NULL,       0,       0,           -1 },
 	{ "Anki",                NULL,       NULL,       0,            1,           -1 },
 	{ "Nemo",                NULL,       NULL,       0,            1,           -1 },
-	{ "TelegramDesktop",     NULL,       NULL,       1 << 7,       1,           -1 },
+	{ "TelegramDesktop",     NULL,       NULL,       0,       1,           -1 },
 	{ "eudic",               NULL,       NULL,       0,            1,           -1 },
 };
 
@@ -102,7 +103,7 @@ static const char* monocle_windows_count_tags[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run",  NULL };
+static const char *dmenucmd[] = { "fish", "-c", "dmenu_run",  NULL };
 static const char *scscmd[] = { "flameshot", "gui",  NULL };
 static const char *termcmd[]  = { "st", "-c", "simp-term", NULL };
 /* static const char *termcmd[]  = { "tabbed", "-d", "-r", "2", "st", "-w", "\"\"", NULL }; */
