@@ -13,35 +13,35 @@ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray             = 1;   /* 0 means no systray */
-static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
+static const int horizpadbar        = 15;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 12;        /* vertical padding for statusbar */
 static const int vertpadtab         = 37;       /* Vertical padding for tab */
 static const int horizpadtabi       = 15;       /* Horizon padding in tab */
 static const int horizpadtabo       = 15;       /* Horizon padding at the tab edge */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char *fonts[]          = { "Ubuntu Nerd Font:size=10" };
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#606672";
 static const char col_cyan[]        = "#70c0ba";
 static const char bluegray[]        = "#2e3440";
 static const char white[]           = "#eeeeee";
 static const char black[]           = "#232831";
+static const char bg_normal[]           = "#1C1F24";
+static const char bg_focus[]           = "#282C34";
+static const char fg_normal[]           = "#606672";
 static const char selected_border_color[] = "#6A6A6B";
 static const int CORNER_RADIUS = 10;
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
-static const unsigned int baralpha = 0x80; /* 50% */
-static const unsigned int tabalpha = 0xE6; /* 90% */
+static const unsigned int baralpha = 0xBF; /* 75% */
+static const unsigned int tabalpha = 0xBF; /* 90% */
 static const unsigned int borderalpha = 0xE6;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { white,     col_gray1, black},
-	[SchemeSel]  = { black,     white,     selected_border_color  },
-	[TabSel]     = { white,     bluegray,  selected_border_color  },
-	[TabNorm]    = { col_gray3, black,     black },
+	[SchemeNorm] = { fg_normal,     bg_normal, black},
+	[SchemeSel]  = { white,     bg_focus,  selected_border_color  },
+	[TabSel]     = { white,     bg_focus,  selected_border_color  },
+	[TabNorm]    = { , bg_normal,  black },
 };
 
 static const unsigned int alphas[][3]      = {
@@ -53,9 +53,10 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", 
-                              "", "", "", 
-                              "", "", "" };
+/* static const char *tags[] = { "", "", "", */ 
+/*                               "", "", "", */ 
+/*                               "", "", "" }; */
+static const char *tags[] = {"", "", "", "", "", "", "","", "", ""};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -69,6 +70,7 @@ static const Rule rules[] = {
 	{ "Nemo",                NULL,       NULL,       0,            1,           -1 },
 	{ "TelegramDesktop",     NULL,       NULL,       0,       1,           -1 },
 	{ "eudic",               NULL,       NULL,       0,            1,           -1 },
+	{ "mpv",               NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
