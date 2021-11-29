@@ -41,7 +41,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { fg_normal,     bg_normal, black},
 	[SchemeSel]  = { white,     bg_focus,  selected_border_color  },
 	[TabSel]     = { white,     bg_focus,  selected_border_color  },
-	[TabNorm]    = { , bg_normal,  black },
+	[TabNorm]    = { fg_normal, bg_normal,  black },
 };
 
 static const unsigned int alphas[][3]      = {
