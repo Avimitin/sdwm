@@ -1,26 +1,33 @@
 #!/bin/bash
 
-SPLITER=" "
+SPLITER=" ^c#bcbcbc^|^d^ "
+FG="^c#eaeaea^"
 
 get_date() {
-	printf "^c#eaeaea^^d^ "
-	printf "^c#eaeaea^$(date '+%B/%d %I:%M ^c#ABBAC1^%p^d^') ^d^"
+	printf "$FG^d^ "
+	printf "$FG$(date '+%B/%d %I:%M ^c#ABBAC1^%p^d^') ^d^"
 }
 
 # battery
 # changed battery here
 battery="Battery 0"
 batt() {
-	printf "$(acpi | grep "$battery" | sed "s/,//g" | sed "s/%/%%/g" | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print " " $4}}')"
+	printf "$FG$(acpi | grep "$battery" \
+    | sed "s/,//g" | sed "s/%/%%/g" \
+    | awk '{if ($3 == "Discharging"){print "  " $4; exit} else {print " " $4}}')^d^"
 }
 
 volume() {
-	printf "^c#eaeaea^ "
-	printf " $(pamixer --get-volume) %%"
+	printf "$FG "
+	printf " $(pamixer --get-volume) %%^d^"
 }
 
 song_max_char=40
 get_song_info() {
+  if ! playerctl metadata > /dev/null 2>&1; then
+    printf "No songs playing"
+    return
+  fi
   song_info="$(playerctl metadata artist) - $(playerctl metadata title)"
   song_info_char=${#song_info}
   if test $[song_info_char] -gt $[song_max_char]; then
@@ -31,8 +38,8 @@ get_song_info() {
 }
 
 song() {
-	printf "^c#eaeaea^^b#0c0c0c^ "
-	printf "^c#eaeaea^ ^b#171617^ $(get_song_info) ^d^" 
+	printf "$FG^b#0c0c0c^ "
+	printf "$FG ^b#171617^ $(get_song_info) ^d^" 
 }
 
 prepend_text() {
