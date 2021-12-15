@@ -40,7 +40,6 @@
 #ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
-#include <X11/extensions/shape.h>
 #include <X11/Xft/Xft.h>
 
 #include "drw.h"
@@ -303,7 +302,6 @@ static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xinitvisual();
-static void drawroundedcorners(Client *c);
 static void zoom(const Arg *arg);
 
 /* variables */
@@ -1533,7 +1531,6 @@ manage(Window w, XWindowAttributes *wa)
 		unfocus(selmon->sel, 0);
 	c->mon->sel = c;
 	arrange(c->mon);
-	drawroundedcorners(c);
 	if (!HIDDEN(c))
 		XMapWindow(dpy, c->win);
 	focus(NULL);
@@ -1817,58 +1814,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	configure(c);
 	XSync(dpy, False);
 
-  drawroundedcorners(c);
 }
-
-void drawroundedcorners(Client *c) {
-    // if set to zero in config.h, do not attempt to round
-    if(CORNER_RADIUS < 0) return;
-
-    // NOTE: this is extremely hacky and surely could be optimized.
-    //       Any X wizards out there reading this, please pull request.
-    if (CORNER_RADIUS > 0 && c && !c->isfullscreen) {
-        Window win;
-        win = c->win;
-        if(!win) return;
-
-        XWindowAttributes win_attr;
-        if(!XGetWindowAttributes(dpy, win, &win_attr)) return;
-
-        // set in config.h:
-        int dia = 2 * CORNER_RADIUS;
-        int w = c->w;
-        int h = c->h;
-        if(w < dia || h < dia) return;
-
-        Pixmap mask;
-        mask = XCreatePixmap(dpy, win, w, h, 1);
-        if(!mask) return;
-
-        XGCValues xgcv;
-        GC shape_gc;
-        shape_gc = XCreateGC(dpy, mask, 0, &xgcv);
-
-        if(!shape_gc) {
-            XFreePixmap(dpy, mask);
-            free(shape_gc);
-            return;
-        }
-
-        XSetForeground(dpy, shape_gc, 0);
-        XFillRectangle(dpy, mask, shape_gc, 0, 0, w, h);
-        XSetForeground(dpy, shape_gc, 1);
-        XFillArc(dpy, mask, shape_gc, 0, 0, dia, dia, 0, 23040);
-        XFillArc(dpy, mask, shape_gc, w-dia-1, 0, dia, dia, 0, 23040);
-        XFillArc(dpy, mask, shape_gc, 0, h-dia-1, dia, dia, 0, 23040);
-        XFillArc(dpy, mask, shape_gc, w-dia-1, h-dia-1, dia, dia, 0, 23040);
-        XFillRectangle(dpy, mask, shape_gc, CORNER_RADIUS, 0, w-dia, h);
-        XFillRectangle(dpy, mask, shape_gc, 0, CORNER_RADIUS, w, h-dia);
-        XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, mask, ShapeSet);
-        XFreePixmap(dpy, mask);
-        XFreeGC(dpy, shape_gc);
-    }
-}
-
 
 void
 resizemouse(const Arg *arg)
@@ -1915,8 +1861,6 @@ resizemouse(const Arg *arg)
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
 				resize(c, c->x, c->y, nw, nh, 1);
 
-      drawroundedcorners(c);
-
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -1929,7 +1873,6 @@ resizemouse(const Arg *arg)
 		focus(NULL);
 	}
 
-  drawroundedcorners(c);
 }
 
 void
