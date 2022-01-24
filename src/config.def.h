@@ -81,11 +81,12 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #include "horizgrid.c"
 static const Layout layouts[] = {
+/* first entry is default */
 	/* symbol     arrange function */
-	{ "",      tile },    /* first entry is default */
 	{ "\ufab1", NULL },    /* no layout function means floating behavior */
+	{ "",      tile },
 	{ "𧻓",     monocle },
-    { "ﱖ",      horizgrid },
+	{ "ﱖ",      horizgrid },
 };
 
 static const char* monocle_windows_count_tags[] = {
