@@ -28,7 +28,6 @@ static const char bg_normal[]           = "#1C1F24";
 static const char bg_focus[]           = "#282C34";
 static const char fg_normal[]           = "#606672";
 static const char selected_border_color[] = "#6A6A6B";
-static const int CORNER_RADIUS = 10;
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
