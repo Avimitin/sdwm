@@ -19,7 +19,11 @@ static const int vertpadtab         = 37;       /* Vertical padding for tab */
 static const int horizpadtabi       = 15;       /* Horizon padding in tab */
 static const int horizpadtabo       = 15;       /* Horizon padding at the tab edge */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "Ubuntu Nerd Font:size=10" };
+static const char *fonts[]          = { 
+	"Ubuntu Nerd Font:size=10",
+	"Noto Sans CJK SC:size=10",
+	"Noto Sans CJK JP:size=10",
+};
 static const char col_cyan[]        = "#70c0ba";
 static const char bluegray[]        = "#2e3440";
 static const char white[]           = "#eeeeee";
