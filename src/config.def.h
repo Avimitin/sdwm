@@ -19,11 +19,7 @@ static const int vertpadtab         = 37;       /* Vertical padding for tab */
 static const int horizpadtabi       = 15;       /* Horizon padding in tab */
 static const int horizpadtabo       = 15;       /* Horizon padding at the tab edge */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "monospace:size=10",
-					"Noto Sans CJK SC:size=10:antialias=true:autohint=true",
-					"Noto Sans CJK JP:size=10:antialias=true:autohint=true",
-					"Ubuntu NF:size=10:antialias=true:autohint=true"};
-static const int statusfontindex = 3; //Select font of font list to use for statusbar
+static const char *fonts[]          = { "Ubuntu Nerd Font:size=10" };
 static const char col_cyan[]        = "#70c0ba";
 static const char bluegray[]        = "#2e3440";
 static const char white[]           = "#eeeeee";

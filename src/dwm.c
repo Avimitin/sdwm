@@ -57,7 +57,7 @@
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
-#define TEXTW(X,F)                (drw_fontset_getwidth(drw, (X),(F)) + lrpad)
+#define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 #define OPAQUE                  0xffU
 
@@ -537,14 +537,14 @@ buttonpress(XEvent *e)
 			/* do not reserve space for vacant tags */
 			if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 				continue;
-			x += TEXTW(tags[i], 0);
+			x += TEXTW(tags[i]);
 		} while (ev->x >= x && ++i < LENGTH(tags));
 		if (i < LENGTH(tags)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - (int)TEXTW(stext, statusfontindex) - getsystraywidth())
+		else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth())
 			click = ClkStatusText;
 		else
 			click = ClkStatusText;
@@ -917,7 +917,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 			if (!isCode) {
 				isCode = 1;
 				text[i] = '\0';
-				w += TEXTW(text, 0) - lrpad;
+				w += TEXTW(text) - lrpad;
 				text[i] = '^';
 				if (text[++i] == 'f')
 					w += atoi(text + ++i);
@@ -929,7 +929,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 		}
 	}
 	if (!isCode)
-		w += TEXTW(text, 0) - lrpad;
+		w += TEXTW(text) - lrpad;
 	else
 		isCode = 0;
 	text = p;
@@ -951,8 +951,8 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 			isCode = 1;
 
 			text[i] = '\0';
-			w = TEXTW(text, statusfontindex) - lrpad;
-			drw_text(drw, x, vertpadbar / 2, w, bh - vertpadbar, 0, text, 0, statusfontindex);
+			w = TEXTW(text) - lrpad;
+			drw_text(drw, x, vertpadbar / 2, w, bh - vertpadbar, 0, text, 0);
 
 			x += w;
 
@@ -995,8 +995,8 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 	}
 
 	if (!isCode) {
-		w = TEXTW(text, statusfontindex) - lrpad;
-		drw_text(drw, x, vertpadbar / 2, w, bh - vertpadbar, 0, text, 0, statusfontindex);
+		w = TEXTW(text) - lrpad;
+		drw_text(drw, x, vertpadbar / 2, w, bh - vertpadbar, 0, text, 0);
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
@@ -1035,14 +1035,14 @@ drawbar(Monitor *m)
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 		continue;
 
-	  w = TEXTW(tags[i], 0);
+	  w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i, 0);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		x += w;
 	}
-	w = blw = TEXTW(m->ltsymbol, 0);
+	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0, 0);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
 	if ((w = m->ww - tw - stw - x) > bh) {
 		drw_setscheme(drw, scheme[SchemeNorm]);
@@ -1112,7 +1112,7 @@ drawtab(Monitor *m) {
 	m->ntabs = 0;
 	for(c = m->clients; c; c = c->next){
 	  if(!ISVISIBLE(c)) continue;
-		m->tab_widths[m->ntabs] = TEXTW(c->name, 0) - lrpad + horizpadtabi + horizpadtabo;
+		m->tab_widths[m->ntabs] = TEXTW(c->name) - lrpad + horizpadtabi + horizpadtabo;
 	  tot_width += m->tab_widths[m->ntabs];
 	  ++m->ntabs;
 	  if(m->ntabs >= MAXTABS) break;
@@ -1141,7 +1141,7 @@ drawtab(Monitor *m) {
 	  if(m->tab_widths[i] >  maxsize) m->tab_widths[i] = maxsize;
 	  w = m->tab_widths[i];
 	  drw_setscheme(drw, scheme[(c == m->sel) ? TabSel : TabNorm]);
-		drw_text(drw, x + horizpadtabo / 2, vertpadbar / 2, w - horizpadtabo, th - vertpadbar, horizpadtabi / 2, c->name, 0, 0);
+		drw_text(drw, x + horizpadtabo / 2, vertpadbar / 2, w - horizpadtabo, th - vertpadbar, horizpadtabi / 2, c->name, 0);
 	  x += w;
 	  ++i;
 	}
