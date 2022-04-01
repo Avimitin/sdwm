@@ -3,8 +3,7 @@ use std::process::*;
 macro_rules! cmd {
     ($c:expr, $($a:expr),*) => {
         {
-            let mut args = Vec::new();
-            args.push($c);
+            let mut args = vec![$c];
             $(
                 args.push($a);
             )*
