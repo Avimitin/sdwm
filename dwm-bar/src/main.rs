@@ -153,8 +153,8 @@ mod component {
         let artist = cmd!("playerctl", "metadata", "artist");
         let song = cmd!("playerctl", "metadata", "title");
 
-        // No music player is open
-        if artist.starts_with("No player could handle this command") {
+        // No music player can be open, playerctl will return no stdout but only stderr
+        if artist.is_empty() {
             return None;
         }
 
