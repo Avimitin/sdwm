@@ -115,16 +115,55 @@ mod component {
     }
 
     /// Create a date component for bar
-    pub fn date_and_time() -> Component {
+    pub fn date_and_time() -> Option<Component> {
         // TODO: use rust native date time
         let date_output = cmd!("date", "'+%B/%d %I:%M %p'");
-        Component::new("", &date_output, "#EAEAEA", "")
+        Some(Component::new("", &date_output, "#EAEAEA", ""))
     }
 
     /// Create a sound volume component for bar
-    pub fn sound_volume() -> Component {
+    pub fn sound_volume() -> Option<Component> {
+        // TODO: Can we RIIR this? Or do Rust have PulseAudio library? Figure it out!
         let output = cmd!("pamixer", "--get-volume");
-        Component::new("", format!("{}%", output).as_str(), "#EAEAEA", "")
+        Some(Component::new(
+            "",
+            format!("{}%", output).as_str(),
+            "#EAEAEA",
+            "",
+        ))
+    }
+
+    pub fn song_info() -> Option<Component> {
+        let text_limit = 40;
+
+        let artist = cmd!("playerctl", "metadata", "artist");
+        let song = cmd!("playerctl", "metadata", "title");
+
+        // No music player is open
+        if artist.starts_with("No player could handle this command") {
+            return None;
+        }
+
+        let output = format!(
+            "{} - {}",
+            if artist.len() != 0 {
+                artist
+            } else {
+                "Anonymous".to_string()
+            },
+            song,
+        );
+
+        Some(Component::new(
+            "",
+            if output.len() > text_limit {
+                &output[0..text_limit]
+            } else {
+                &output
+            },
+            "",
+            "#0c0c0c",
+        ))
     }
 }
 
@@ -135,15 +174,23 @@ use std::io::{self, Write};
 
 fn main() {
     let bar = vec![
+        component::song_info(),
         component::sound_volume(),
         component::date_and_time(),
     ];
 
-    for comp in bar {
+    let mut begining = true;
+    for component in bar {
         // TODO: make separater more flexible to DIY
-        print!(" | ");
-        print!("{}", comp);
-        print!("{}", NORMAL_COLOR);
+        if let Some(comp) = component {
+            if begining {
+                begining = false;
+            } else {
+                print!(" | ");
+            }
+            print!("{}", comp);
+            print!("{}", NORMAL_COLOR);
+        }
     }
     io::stdout().flush().unwrap()
 }
