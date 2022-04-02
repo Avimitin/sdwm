@@ -182,17 +182,14 @@ mod component {
 
     pub fn battery() -> Option<Component> {
         let output = cmd!("acpi");
-        let output: Vec<&str> = output.split(": ").collect();
-        if output.len() < 2 {
+        let output: Vec<&str> = output.split(' ').collect();
+        if output.is_empty() {
             return None;
         }
-
-        let status = output[1];
-        let status: Vec<&str> = status.split(", ").collect();
-        if status[0] == "Discharging" {
-            Some(Component::new("", status[1], "#EAEAEA", ""))
+        if output[2] == "Discharging," {
+            Some(Component::new("", output[3], "#EAEAEA", ""))
         } else {
-            Some(Component::new("", status[1], "#EAEAEA", ""))
+            Some(Component::new("", output[3], "#EAEAEA", ""))
         }
     }
 }
