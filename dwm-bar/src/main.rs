@@ -211,17 +211,15 @@ fn main() {
     ];
 
     let mut begining = true;
-    for component in bar {
+    for component in bar.iter().flatten() {
+        if begining {
+            begining = false;
+        } else {
         // TODO: make separater more flexible to DIY
-        if let Some(comp) = component {
-            if begining {
-                begining = false;
-            } else {
-                print!(" | ");
-            }
-            print!("{}", comp);
-            print!("{}", NORMAL_COLOR);
+            print!(" | ");
         }
+        print!("{}", component);
+        print!("{}", NORMAL_COLOR);
     }
     io::stdout().flush().unwrap()
 }
