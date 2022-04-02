@@ -39,6 +39,8 @@ mod component {
     struct Color {
         fg: Option<String>,
         bg: Option<String>,
+        icon_fg: Option<String>,
+        icon_bg: Option<String>,
     }
 
     impl Color {
@@ -46,9 +48,11 @@ mod component {
         /// parameter `bg` means background. You should give a valid hex color code in format
         /// like `#FFFFFF`. If you pass empty string, this means you are going to use the
         /// default colors.
-        fn new<T: Into<String>>(fg: T, bg: T) -> Self {
+        fn new<T: Into<String>>(fg: T, bg: T, icon: (T, T)) -> Self {
             let fg = fg.into();
             let bg = bg.into();
+            let icon_fg = icon.0.into();
+            let icon_bg = icon.1.into();
 
             let fg = if fg.is_empty() {
                 None
@@ -62,32 +66,72 @@ mod component {
                 Some(format!("^b{}^", bg))
             };
 
-            Self { fg, bg }
+            let icon_fg = if icon_fg.is_empty() {
+                fg.clone()
+            } else {
+                Some(format!("^c{}^", icon_fg))
+            };
+
+            let icon_bg = if icon_bg.is_empty() {
+                bg.clone()
+            } else {
+                Some(format!("^b{}^", icon_bg))
+            };
+
+            Self {
+                fg,
+                bg,
+                icon_fg,
+                icon_bg,
+            }
         }
     }
 
     #[test]
     fn test_color_new() {
-        assert_eq!(Color::new("", ""), Color { fg: None, bg: None });
         assert_eq!(
-            Color::new("#000000", ""),
-            Color {
-                fg: Some("^c#000000^".to_string()),
-                bg: None
-            }
-        );
-        assert_eq!(
-            Color::new("", "#FFFFFF"),
+            Color::new("", "", ("", "")),
             Color {
                 fg: None,
-                bg: Some("^b#FFFFFF^".to_string())
+                bg: None,
+                icon_fg: None,
+                icon_bg: None
             }
         );
         assert_eq!(
-            Color::new("#000000", "#FFFFFF"),
+            Color::new("#000000", "", ("", "")),
             Color {
                 fg: Some("^c#000000^".to_string()),
-                bg: Some("^b#FFFFFF^".to_string())
+                bg: None,
+                icon_fg: Some("^c#000000^".to_string()),
+                icon_bg: None,
+            }
+        );
+        assert_eq!(
+            Color::new("", "#FFFFFF", ("", "")),
+            Color {
+                fg: None,
+                bg: Some("^b#FFFFFF^".to_string()),
+                icon_fg: None,
+                icon_bg: Some("^b#FFFFFF^".to_string())
+            }
+        );
+        assert_eq!(
+            Color::new("#000000", "#FFFFFF", ("", "")),
+            Color {
+                fg: Some("^c#000000^".to_string()),
+                bg: Some("^b#FFFFFF^".to_string()),
+                icon_fg: Some("^c#000000^".to_string()),
+                icon_bg: Some("^b#FFFFFF^".to_string()),
+            }
+        );
+        assert_eq!(
+            Color::new("#000000", "#FFFFFF", ("#EAEAEA", "#FF00FF")),
+            Color {
+                fg: Some("^c#000000^".to_string()),
+                bg: Some("^b#FFFFFF^".to_string()),
+                icon_fg: Some("^c#EAEAEA^".to_string()),
+                icon_bg: Some("^b#FF00FF^".to_string()),
             }
         );
     }
@@ -103,11 +147,16 @@ mod component {
         /// Create a new component with icon, text, and foreground, backgroun colors.
         ///
         /// T: Into<String>
-        pub fn new<T: Into<String>>(icon: T, text: T, fg: T, bg: T) -> Self {
+        pub fn new<T: Into<String>>(
+            icon: T,
+            icon_color: (T, T),
+            text: T,
+            text_color: (T, T),
+        ) -> Self {
             Self {
                 icon: icon.into(),
                 text: text.into(),
-                color: Color::new(fg, bg),
+                color: Color::new(text_color.0, text_color.1, icon_color),
             }
         }
     }
@@ -116,14 +165,22 @@ mod component {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut fg = String::new();
             let mut bg = String::new();
+            let mut icon_fg = String::new();
+            let mut icon_bg = String::new();
             if let Some(s) = &self.color.fg {
                 fg = s.clone();
             }
             if let Some(s) = &self.color.bg {
                 bg = s.clone();
             }
+            if let Some(s) = &self.color.icon_fg {
+                icon_fg = s.clone();
+            }
+            if let Some(s) = &self.color.icon_bg {
+                icon_bg = s.clone();
+            }
             // [icon] [text]
-            write!(f, "{}{}{} {}", fg, bg, self.icon, self.text)
+            write!(f, "{}{}{} {}{}{}", icon_fg, icon_bg, self.icon, fg, bg, self.text)
         }
     }
 
@@ -131,7 +188,7 @@ mod component {
     pub fn date_and_time() -> Option<Component> {
         // TODO: use rust native date time
         let date_output = cmd!("date", "'+%B/%d %I:%M %p'");
-        Some(Component::new("", &date_output, "#EAEAEA", ""))
+        Some(Component::new("", ("", ""), &date_output, ("#EAEAEA", "")))
     }
 
     /// Create a sound volume component for bar
@@ -140,9 +197,9 @@ mod component {
         let output = cmd!("pamixer", "--get-volume");
         Some(Component::new(
             "",
+            ("", ""),
             format!("{}%", output).as_str(),
-            "#EAEAEA",
-            "",
+            ("#EAEAEA", ""),
         ))
     }
 
@@ -158,7 +215,7 @@ mod component {
         }
 
         let output = format!(
-            "{} - {}",
+            " {} - {} ",
             if !artist.is_empty() {
                 artist
             } else {
@@ -167,15 +224,18 @@ mod component {
             song,
         );
 
+        // trim the text
+        let output = if output.len() > text_limit {
+            format!("{}...", &output[0..text_limit])
+        } else {
+            output
+        };
+
         Some(Component::new(
-            "",
-            if output.len() > text_limit {
-                &output[0..text_limit]
-            } else {
-                &output
-            },
-            "#EAEAEA",
-            "#0c0c0c",
+            " ",
+            ("#EAEAEA", "#0C0C0C"),
+            &output,
+            ("#EAEAEA", "#171617"),
         ))
     }
 
@@ -186,9 +246,9 @@ mod component {
             return None;
         }
         if output[2] == "Discharging," {
-            Some(Component::new("", output[3], "#EAEAEA", ""))
+            Some(Component::new("", ("", ""), output[3], ("#EAEAEA", "")))
         } else {
-            Some(Component::new("", output[3], "#EAEAEA", ""))
+            Some(Component::new("", ("", ""), output[3], ("#EAEAEA", "")))
         }
     }
 
@@ -229,10 +289,10 @@ mod component {
             None
         } else {
             Some(Component::new(
-                "",
+                "",
+                ("", ""),
                 &format!("{}%", percentage.join("")),
-                "#EAEAEA",
-                "",
+                ("#EAEAEA", ""),
             ))
         }
     }
