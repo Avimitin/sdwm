@@ -1,6 +1,5 @@
 mod component {
     use std::process::*;
-
     macro_rules! cmd {
         ($c:expr, $($a:expr),*) => {
             {
@@ -229,35 +228,54 @@ mod component {
         if percentage.is_empty() {
             None
         } else {
-            Some(Component::new("", &format!("{}%", percentage.join("")), "#EAEAEA", ""))
+            Some(Component::new(
+                "",
+                &format!("{}%", percentage.join("")),
+                "#EAEAEA",
+                "",
+            ))
         }
     }
 }
 
 /// Reset the color the SchemeNorm
 static NORMAL_COLOR: &str = "^d^";
+static DIVIDER: &str = " | ";
 
-use std::io::{self, Write};
+use std::thread::sleep;
+use std::time::Duration;
+use std::process::Command;
+
+fn run() {
+    loop {
+        let bar = vec![
+            component::song_info(),
+            component::sound_volume(),
+            component::headset_battery(),
+            component::battery(),
+            component::date_and_time(),
+        ];
+
+        let mut begining = true;
+        let mut barline = String::new();
+        for component in bar.iter().flatten() {
+            if begining {
+                begining = false;
+            } else {
+                barline.push_str(DIVIDER);
+            }
+            barline.push_str(&format!("{}", component));
+            barline.push_str(NORMAL_COLOR);
+        }
+        Command::new("xsetroot")
+            .arg("-name")
+            .arg(barline)
+            .spawn().expect("Fail to send component to bar");
+
+        sleep(Duration::from_secs(1));
+    }
+}
 
 fn main() {
-    let bar = vec![
-        component::song_info(),
-        component::sound_volume(),
-        component::headset_battery(),
-        component::battery(),
-        component::date_and_time(),
-    ];
-
-    let mut begining = true;
-    for component in bar.iter().flatten() {
-        if begining {
-            begining = false;
-        } else {
-            // TODO: make separater more flexible to DIY
-            print!(" | ");
-        }
-        print!("{}", component);
-        print!("{}", NORMAL_COLOR);
-    }
-    io::stdout().flush().unwrap()
+    run()
 }
