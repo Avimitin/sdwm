@@ -19,6 +19,20 @@ mod component {
                     Err(e) => panic!("Unreadable output from command {} {:?}: {}", $c, &args, e),
                 }
             }
+        };
+        ($c:expr) => {
+            {
+                let raw = Command::new("sh")
+                    .arg("-c")
+                    .arg($c)
+                    .output()
+                    .expect(format!("Fail to execute {} command", $c).as_str());
+                let stdout = String::from_utf8(raw.stdout);
+                match stdout {
+                    Ok(s) => s.trim().to_owned(),
+                    Err(e) => panic!("Unreadable output from command {}: {}", $c, e),
+                }
+            }
         }
     }
 
@@ -165,6 +179,22 @@ mod component {
             "#0c0c0c",
         ))
     }
+
+    pub fn battery() -> Option<Component> {
+        let output = cmd!("acpi");
+        let output: Vec<&str> = output.split(": ").collect();
+        if output.len() < 2 {
+            return None;
+        }
+
+        let status = output[1];
+        let status: Vec<&str> = status.split(", ").collect();
+        if status[0] == "Discharging" {
+            Some(Component::new("", status[1], "#EAEAEA", ""))
+        } else {
+            Some(Component::new("", status[1], "#EAEAEA", ""))
+        }
+    }
 }
 
 /// Reset the color the SchemeNorm
@@ -176,6 +206,7 @@ fn main() {
     let bar = vec![
         component::song_info(),
         component::sound_volume(),
+        component::battery(),
         component::date_and_time(),
     ];
 
