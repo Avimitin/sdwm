@@ -160,7 +160,7 @@ mod component {
 
         let output = format!(
             "{} - {}",
-            if artist.len() != 0 {
+            if !artist.is_empty() {
                 artist
             } else {
                 "Anonymous".to_string()
