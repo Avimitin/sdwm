@@ -192,6 +192,46 @@ mod component {
             Some(Component::new("", output[3], "#EAEAEA", ""))
         }
     }
+
+    pub fn headset_battery() -> Option<Component> {
+        let headset = cmd!("upower", "-e");
+        if headset.is_empty() {
+            return None;
+        }
+
+        let mut device: &str = "";
+        for line in headset.lines() {
+            if line.contains("headset") {
+                device = line;
+            }
+        }
+
+        if device.is_empty() {
+            return None;
+        }
+
+        let info = cmd!("upower", "-i", device);
+        if info.is_empty() {
+            return None;
+        }
+
+        let mut battery = "";
+        for line in info.lines() {
+            if line.contains("percentage") {
+                battery = line;
+            }
+        }
+        if battery.is_empty() {
+            return None;
+        }
+
+        let percentage: Vec<&str> = battery.matches(char::is_numeric).collect();
+        if percentage.is_empty() {
+            None
+        } else {
+            Some(Component::new("", &format!("{}%", percentage.join("")), "#EAEAEA", ""))
+        }
+    }
 }
 
 /// Reset the color the SchemeNorm
@@ -203,6 +243,7 @@ fn main() {
     let bar = vec![
         component::song_info(),
         component::sound_volume(),
+        component::headset_battery(),
         component::battery(),
         component::date_and_time(),
     ];
@@ -212,7 +253,7 @@ fn main() {
         if begining {
             begining = false;
         } else {
-        // TODO: make separater more flexible to DIY
+            // TODO: make separater more flexible to DIY
             print!(" | ");
         }
         print!("{}", component);
