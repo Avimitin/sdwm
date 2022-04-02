@@ -334,7 +334,7 @@ fn run() {
             eprintln!("Fail to execute xsetroot")
         }
 
-        sleep(Duration::from_secs(1));
+        sleep(Duration::from_secs(10));
     }
 }
 
