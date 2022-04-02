@@ -123,7 +123,7 @@ mod component {
                 bg = s.clone();
             }
             // [icon] [text]
-            write!(f, "{} {}{}{}", self.icon, fg, bg, self.text)
+            write!(f, "{}{}{} {}", fg, bg, self.icon, self.text)
         }
     }
 
@@ -174,7 +174,7 @@ mod component {
             } else {
                 &output
             },
-            "",
+            "#EAEAEA",
             "#0c0c0c",
         ))
     }
@@ -242,9 +242,9 @@ mod component {
 static NORMAL_COLOR: &str = "^d^";
 static DIVIDER: &str = " | ";
 
+use std::process::Command;
 use std::thread::sleep;
 use std::time::Duration;
-use std::process::Command;
 
 fn run() {
     loop {
@@ -267,10 +267,12 @@ fn run() {
             barline.push_str(&format!("{}", component));
             barline.push_str(NORMAL_COLOR);
         }
-        Command::new("xsetroot")
-            .arg("-name")
-            .arg(barline)
-            .spawn().expect("Fail to send component to bar");
+
+        if let Ok(mut child) = Command::new("xsetroot").arg("-name").arg(barline).spawn() {
+            child.wait().expect("fail to end the xsetroot command");
+        } else {
+            eprintln!("Fail to execute xsetroot")
+        }
 
         sleep(Duration::from_secs(1));
     }
