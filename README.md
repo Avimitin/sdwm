@@ -58,6 +58,13 @@ cp scripts/* ~/.local/share/dwm
 I've write some script to automatically run when dwm start up, checkout the
 `$HOME/.local/share/dwm` directory.
 
+- Dwm bar
+
+There are two versions of the dwm bar, one by shell script and another by Rust.
+You can run command `cd dwm-bar && cargo install --path .` to build the dwm-bar program.
+It will place the executable under `~/.cargo/bin`. And you just need to update the bar
+executable in `autostart.sh`.
+
 ## Customize
 
 Modified file `config.def.h`
