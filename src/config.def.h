@@ -104,7 +104,7 @@ static const char* monocle_windows_count_tags[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "fish", "-c", "dmenu_run",  NULL };
+static const char *dmenucmd[] = {"rofi", "--no-lazy-grab", "-show", "drun", "-theme", "blurry",  NULL };
 static const char *scscmd[] = { "flameshot", "gui",  NULL };
 static const char *termcmd[]  = { "st", "-c", "simp-term", NULL };
 /* static const char *termcmd[]  = { "tabbed", "-d", "-r", "2", "st", "-w", "\"\"", NULL }; */
