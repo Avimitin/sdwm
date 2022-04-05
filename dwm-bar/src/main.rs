@@ -300,7 +300,7 @@ mod component {
 
 /// Reset the color the SchemeNorm
 static NORMAL_COLOR: &str = "^d^";
-static DIVIDER: &str = " | ";
+static DIVIDER: &str = "     |     ";
 
 use std::process::Command;
 use std::thread::sleep;
