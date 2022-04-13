@@ -1,13 +1,13 @@
 use super::color::Color;
 
 #[derive(Debug)]
-pub struct Component {
+pub struct Block {
     color: Color,
     text: String,
     icon: String,
 }
 
-impl Component {
+impl Block {
     /// Builder chain for component.
     pub fn new<T: Into<String>, E: Into<String>>(icon: T, text: E) -> Self {
         Self {
@@ -38,7 +38,7 @@ impl Component {
     }
 }
 
-impl std::fmt::Display for Component {
+impl std::fmt::Display for Block {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = String::new();
 

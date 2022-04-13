@@ -1,7 +1,7 @@
 use std::fs;
-use super::component::Component;
+use super::widget::Block;
 
-pub fn avg_load() -> Option<Component> {
+pub fn avg_load() -> Option<Block> {
     let status = fs::read_to_string("/proc/stat").ok()?;
     let mut cpustat = Vec::new();
     for line in status.lines() {
@@ -25,7 +25,7 @@ pub fn avg_load() -> Option<Component> {
     let avg = active / (active + idle);
 
     Some(
-        Component::new("﬙", format!("{:.2} %", avg * 100.0))
+        Block::new("﬙", format!("{:.2} %", avg * 100.0))
             .text_fg("#EAEAEA")
             .icon_fg("#EAEAEA"),
     )

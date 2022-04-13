@@ -1,7 +1,7 @@
 use mpris::PlayerFinder;
-use super::component::Component;
+use super::widget::Block;
 
-pub fn song_info() -> Option<Component> {
+pub fn song_info() -> Option<Block> {
     // TODO: We need to use logging to report error here.
     let player = PlayerFinder::new().ok()?.find_active().ok()?;
 
@@ -30,7 +30,7 @@ pub fn song_info() -> Option<Component> {
     };
 
     Some(
-        Component::new(" ", output)
+        Block::new(" ", output)
             .icon_color("#EAEAEA", "#0C0C0C")
             .text_color("#EAEAEA", "#171617"),
     )

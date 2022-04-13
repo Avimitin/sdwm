@@ -34,7 +34,7 @@ macro_rules! cmd {
 }
 
 mod color;
-mod component;
+mod widget;
 
 mod song;
 mod datetime;

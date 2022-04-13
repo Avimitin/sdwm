@@ -1,4 +1,4 @@
-use super::component::Component;
+use super::widget::Block;
 use dbus::blocking::stdintf::org_freedesktop_dbus::Properties;
 use dbus::blocking::Connection;
 use dbus::Path;
@@ -48,7 +48,7 @@ fn get_device_path(pat: &str) -> Option<Path> {
 ///
 /// Return None if no battery device name contains "BAT0" keyword,
 /// or PowerSupply/Percentage property are not found.
-pub fn battery() -> Option<Component> {
+pub fn battery() -> Option<Block> {
     let device = get_device_path("BAT0")?;
     let conn = DBUS_SYSTEM.lock().unwrap();
     let proxy = conn.with_proxy(
@@ -67,7 +67,7 @@ pub fn battery() -> Option<Component> {
     let icon = if has_power_supply { "" } else { "" };
 
     Some(
-        Component::new(icon, format!("{:.0} %", percentage))
+        Block::new(icon, format!("{:.0} %", percentage))
             .text_fg("#EAEAEA")
             .icon_fg("#EAEAEA"),
     )
@@ -77,7 +77,7 @@ pub fn battery() -> Option<Component> {
 ///
 /// Return None if no battery device name contains "headset" keyword,
 /// or no percentage property is found.
-pub fn headset_battery() -> Option<Component> {
+pub fn headset_battery() -> Option<Block> {
     let device = get_device_path("headset")?;
     let conn = DBUS_SYSTEM.lock().unwrap();
     let proxy = conn.with_proxy(
@@ -91,7 +91,7 @@ pub fn headset_battery() -> Option<Component> {
         .ok()?;
 
     Some(
-        Component::new("", format!("{:.0}%", percentage))
+        Block::new("", format!("{:.0}%", percentage))
             .text_fg("#EAEAEA")
             .icon_fg("#EAEAEA"),
     )
