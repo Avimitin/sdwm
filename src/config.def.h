@@ -35,8 +35,8 @@ static const char selected_border_color[] = "#6A6A6B";
 
 /* More about exadecimal color code for transparency can check:
  * https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 */
-static const unsigned int baralpha = 0xBF; /* 75% */
-static const unsigned int tabalpha = 0xBF; /* 90% */
+static const unsigned int baralpha = 0x99; /* 75% */
+static const unsigned int tabalpha = 0x99; /* 90% */
 static const unsigned int borderalpha = 0xE6;
 
 static const char *colors[][3]      = {
