@@ -5,8 +5,15 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+bluetooth-battery = []
+
 [dependencies]
 chrono = { version = "0.4", features = ["unstable-locales"] }
-mpris = "2.0.0-rc2"
-dbus = "0.9.5"
-lazy_static = "1.4.0"
+dbus = { version = "0.9.5", features = ["futures"] }
+argh = "0.1.7"
+tokio = { version = "1.17.0", features = ["full"] }
+anyhow = "1.0.56"
+dbus-tokio = { version = "0.7.5" }
+libpulse-binding = { version = "2.26.0" }
+
