@@ -1,3 +1,7 @@
+# ARCHIVED
+
+I am now using KDE under wayland. This project is no more under maintain.
+
 # SDWM
 
 My attempt to make DWM focus on the "WM".
